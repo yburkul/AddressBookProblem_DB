@@ -81,5 +81,39 @@ namespace AdvanceAddressBook
             }
             return list;
         }
+        public bool UpdateContact(AddressBook address)
+        {
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(connectionString))
+                {
+                    SqlCommand command = new SqlCommand("dbo.EditContact", connection);
+                    command.CommandType = CommandType.StoredProcedure;
+                    command.Parameters.AddWithValue("@First_Name", address.First_Name);
+                    command.Parameters.AddWithValue("@Last_Name", address.Last_Name);
+                    command.Parameters.AddWithValue("@Address", address.Address);
+                    command.Parameters.AddWithValue("@City", address.City);
+                    command.Parameters.AddWithValue("@State", address.State);
+                    command.Parameters.AddWithValue("@Zip", address.Zip);
+                    command.Parameters.AddWithValue("@PhoneNumber", address.PhoneNumber);
+                    command.Parameters.AddWithValue("@Email", address.Email);
+                    command.Parameters.AddWithValue("@AddressBookName", address.AddressBookName);
+                    command.Parameters.AddWithValue("@Type", address.Type);
+                    connection.Open();
+                    var result = command.ExecuteNonQuery();
+                    connection.Close();
+                    if (result != 0)
+                    {
+                        return true;
+                    }
+                    return false;
+                }
+            }
+            catch (Exception)
+            {
+                throw new AddressException(AddressException.ExceptionType.Contact_Not_Updated, "Contact not updated");
+                return false;
+            }
+        }
     }
 }
