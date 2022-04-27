@@ -12,7 +12,7 @@ namespace AdvanceAddressBook
         ExceptionType exceptionType;
         public enum ExceptionType
         {
-            Connection_Failed, Contact_Not_Updated
+            Connection_Failed, Contact_Not_Updated, Contact_Not_Add
         }
         public AddressException(ExceptionType exceptionType, string message) : base(message)
         {

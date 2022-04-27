@@ -17,7 +17,7 @@ namespace AdvanceAddressBook
         public double Zip { get; set; }
         public double PhoneNumber { get; set; }
         public string Email { get; set; }
-        public string Type { get; set; }
         public string AddressBookName { get; set; }
+        public string Type { get; set; }
     }
 }
