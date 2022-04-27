@@ -38,9 +38,18 @@ namespace AddressBookTesting
             addressBook.Zip = 340045;
             addressBook.PhoneNumber = 8805320078;
             addressBook.Email = "satishshelke123@gmail.com";
-            addressBook.AddressBookName = "FrinedCircle";
-            addressBook.Type = "Firend";
+            addressBook.AddressBookName = "FriendCircle";
+            addressBook.Type = "Friend";
             bool result = details.UpdateContact(addressBook);
+            Assert.AreEqual(expected, result);
+        }
+        [Test]
+        public void Get_Data_ByUsingCityAndState()
+        {
+            bool expected = true;
+            addressBook.City = "surat";
+            addressBook.State = "gujrat";
+            bool result = details.GetDataFromCityAndState(addressBook);
             Assert.AreEqual(expected, result);
         }
     }

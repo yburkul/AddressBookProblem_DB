@@ -15,6 +15,7 @@ namespace AdvanceAddressBook
                 Console.WriteLine("2: For Close Connection");
                 Console.WriteLine("3: For Get All Address Book Contact Details");
                 Console.WriteLine("4: For Update The Contact");
+                Console.WriteLine("5: For Get Data By Using City And State");
                 Console.WriteLine("0: For Exit");
                 option = int.Parse(Console.ReadLine());
                 switch (option)
@@ -64,6 +65,16 @@ namespace AdvanceAddressBook
                         addressbook.Type = type;
                         details.UpdateContact(addressbook);
                         Console.WriteLine("Contact is Updated");
+                        break;
+                    case 5:
+                        AddressBook getData = new AddressBook();
+                        Console.Write("Enter the City Name:-");
+                        string cityname = Console.ReadLine();
+                        getData.City = cityname;
+                        Console.Write("Enter the State Name:-");
+                        string statename = Console.ReadLine();
+                        getData.State = statename;
+                        details.GetDataFromCityAndState(getData);
                         break;
                     case 0:
                         Console.WriteLine("Exit");

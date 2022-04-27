@@ -115,5 +115,55 @@ namespace AdvanceAddressBook
                 return false;
             }
         }
+        public bool GetDataFromCityAndState(AddressBook address)
+        {
+            try
+            {
+                List<AddressBook> list = new List<AddressBook>();
+                SqlConnection sqlConnection = new SqlConnection(connectionString);
+                using (sqlConnection)
+                {
+                    SqlCommand cmd = new SqlCommand("spRetreiveTheData", sqlConnection);
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue(@"City", address.City);
+                    cmd.Parameters.AddWithValue(@"State", address.State);
+                    sqlConnection.Open();
+                    SqlDataReader reader = cmd.ExecuteReader();
+                    if (reader.HasRows)
+                    {
+                        while (reader.Read())
+                        {
+                            address.ID = reader.GetInt32(0);
+                            address.First_Name = reader.GetString(1);
+                            address.Last_Name = reader.GetString(2);
+                            address.Address = reader.GetString(3);
+                            address.City = reader.GetString(4);
+                            address.State = reader.GetString(5);
+                            address.Zip = reader.GetInt64(6);
+                            address.PhoneNumber = reader.GetInt64(7);
+                            address.Email = reader.GetString(8);
+                            address.Type = reader.GetString(9);
+                            address.AddressBookName = reader.GetString(10);
+                            list.Add(address);
+                            Console.WriteLine(address.ID + "," + address.First_Name + "," + address.Last_Name + "," + address.Address + "," + address.City + ","
+                                + address.State + "," + address.Zip + "," + address.PhoneNumber + "," + address.Email + "," + address.Type + "," + address.AddressBookName);                           
+                        }
+                        Console.WriteLine("The Number Of Address is: " + list.Count());
+                    }
+                    else
+                    {
+                        Console.WriteLine("No Data Found");
+                    }
+                    sqlConnection.Close();
+                    return true;
+                }               
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+                return false;
+
+            }
+        }
     }
 }
