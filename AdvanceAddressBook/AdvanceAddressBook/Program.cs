@@ -16,6 +16,8 @@ namespace AdvanceAddressBook
                 Console.WriteLine("3: For Get All Address Book Contact Details");
                 Console.WriteLine("4: For Update The Contact");
                 Console.WriteLine("5: For Get Data By Using City And State");
+                Console.WriteLine("6: For Add New Contact In Address Book");
+                Console.WriteLine("7: For Delete The Contact");
                 Console.WriteLine("0: For Exit");
                 option = int.Parse(Console.ReadLine());
                 switch (option)
@@ -111,6 +113,13 @@ namespace AdvanceAddressBook
                         details.AddContact(addressBook);
                         Console.WriteLine("New Contact is Added");
                         break;
+                    case 7:
+                        AddressBook delete = new AddressBook();
+                        Console.WriteLine("Enter a First Name For Delete The Contact");
+                        string first_name = Console.ReadLine();
+                        delete.First_Name = first_name;
+                        details.RemoveContact(delete);
+                        break;                   
                     case 0:
                         Console.WriteLine("Exit");
                         break;

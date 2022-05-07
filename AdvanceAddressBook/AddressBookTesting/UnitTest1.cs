@@ -1,5 +1,8 @@
 using AdvanceAddressBook;
 using NUnit.Framework;
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace AddressBookTesting
 {
@@ -7,24 +10,13 @@ namespace AddressBookTesting
     {
         Details details;
         AddressBook addressBook;
-        [SetUp]
         public void Setup()
         {
             details = new Details();
             addressBook = new AddressBook();
         }
         /// <summary>
-        /// TC -Get all the Address Book Data 
-        /// </summary>
-        [Test]
-        public void Get_AllAddressBookData()
-        {
-            var expected = 10;
-            var result = Details.GetAddressBookDetails();
-            Assert.AreEqual(expected, result.Count);
-        }
-        /// <summary>
-        /// TC- Update the Address Book Contact In DataBase
+        /// TC- Update the Address Book Contact
         /// </summary>
         [Test]
         public void Update_AddressBook_ContactInDB()

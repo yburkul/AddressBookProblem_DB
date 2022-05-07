@@ -169,6 +169,7 @@ namespace AdvanceAddressBook
         {
             try
             {
+                List<AddressBook> list = new List<AddressBook>();   
                 using (sqlConnection)
                 {
                     SqlCommand sqlCommand = new SqlCommand("Add_AddressBookContact", sqlConnection);
@@ -183,6 +184,7 @@ namespace AdvanceAddressBook
                     sqlCommand.Parameters.AddWithValue("@Email", address.Email);
                     sqlCommand.Parameters.AddWithValue("@AddressBookName", address.AddressBookName);
                     sqlCommand.Parameters.AddWithValue("@Type", address.Type);
+                    list.Add(address);
                     sqlConnection.Open();
 
                     var result = sqlCommand.ExecuteNonQuery();
@@ -197,6 +199,29 @@ namespace AdvanceAddressBook
             catch (Exception)
             {
                 throw new AddressException(AddressException.ExceptionType.Contact_Not_Add, "Contact are not added");
+            }
+        }
+        public void RemoveContact(AddressBook address)
+        {
+            try
+            {
+                using (sqlConnection)
+                {
+                    SqlCommand command = new SqlCommand("dbo.spDeleteContactFormAddressBook", sqlConnection);
+                    command.CommandType = CommandType.StoredProcedure;
+                    command.Parameters.AddWithValue("@First_Name", address.First_Name);
+                    sqlConnection.Open();
+                    var result = command.ExecuteNonQuery();
+                    sqlConnection.Close();
+                    if (result != 0)
+                    {
+                        Console.WriteLine("Contact is Deleted");
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
             }
         }
     }
